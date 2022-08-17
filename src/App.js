@@ -90,7 +90,7 @@ const removeBodyClasses = () =>{
                           {/*  SECOND COMPONENT */}
             {/* </Route> */}
 
-            <Route path="/textUtils" element={<TextFrom heading="Enter The Text To Analyze" mode={mode} showAlertsss={showAlert} />} />
+            <Route path="/textUtils" element={<TextFrom heading="Enter The Text To Manipulate " mode={mode} showAlertsss={showAlert} />} />
             <Route path="/abouts" element={<About  mode={mode}/>} />
             {/* <Route exact path="/abouts" element={<About/>}> */}
               {/* <About /> */}
