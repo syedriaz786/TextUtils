@@ -34,7 +34,8 @@ export default function TextFrom(props) {
     const handleCopy = () =>{
         var text = document.getElementById("myBox");
         text.select();
-        navigator.clipboard.writeText(text.value);
+        navigator.clipboard.writeText(text.value);     // <-- yahan hum copy kr rhe han text ko
+        document.getSelection().removeAllRanges();    // <-- ye copy hone pr jo text/ words select hoty han unko unselect krta ha
         props.showAlertsss("Copied Text","success");
 
     }
@@ -63,8 +64,9 @@ export default function TextFrom(props) {
    
     //    For EXAMPLE : text = " change value "  <-- to is tarhan variable ki value change nhi hgi
 
-let countTime = 0.008 * text.split(/[ ]+/).length;
-let countWord =text.split(/[ ]+/).length;
+
+let countTime = 0.008 * text.split(/\s+/).length  ;
+
     return (
         <>
             <div className="container" style={{color: props.mode === 'dark'? 'white' :'black' }}>
@@ -73,17 +75,17 @@ let countWord =text.split(/[ ]+/).length;
                 <div>
                     <h1>{props.heading}</h1>
                     <div className="mb-3">
-                        <textarea className="form-control" value={text} onChange={handleOnChange} style={{ backgroundColor: props.mode === 'dark'? 'gray' :'white', color: props.mode === 'dark'? 'white' :'black' }} id="myBox" rows="8"></textarea>
+                        <textarea className="form-control" value={text} onChange={handleOnChange} style={{ backgroundColor: props.mode === 'dark'? '#13466e' :'white', color: props.mode === 'dark'? 'white' :'black' }} id="myBox" rows="8"></textarea>
 
                         {/* 5. yahan hum state k variable ko call karay hai textarea k value me  */}
 
 
 
-                        <button className="btn btn-primary mt-3" onClick={handleUpperCaseClick}>Convert To UpperCase</button>
-                        <button className="btn btn-primary mt-3 ms-3" onClick={handleLowerCaseClick}>Convert To LowerCase</button>
-                        <button className="btn btn-primary mt-3 ms-3" onClick={clearText}>Clear</button>
-                        <button className="btn btn-primary mt-3 ms-3" onClick={handleCopy}>Copy ClipBoard</button>
-                        <button className="btn btn-primary mt-3 ms-3" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+                        <button disabled={text.length===0} className="btn btn-primary mx-2 mt-3" onClick={handleUpperCaseClick}>Convert To UpperCase</button>
+                        <button disabled={text.length===0} className="btn btn-primary mx-2 mt-3" onClick={handleLowerCaseClick}>Convert To LowerCase</button>
+                        <button  disabled={text.length===0} className="btn btn-primary mx-2 mt-3" onClick={clearText}>Clear</button>
+                        <button disabled={text.length===0} className="btn btn-primary mx-2 mt-3" onClick={handleCopy}>Copy ClipBoard</button>
+                        <button disabled={text.length===0} className="btn btn-primary mx-2 mt-3" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
                     </div>
 
                 </div>
@@ -92,10 +94,10 @@ let countWord =text.split(/[ ]+/).length;
             
             <div className="contianer my-3" style={{color: props.mode === 'dark'? 'white' :'black'}}>
                 <h1 className='border-bottom' >Your Text Summary</h1>
-                <p>{countWord===1 ? countWord = 0 : countWord -=1 } Words and {text.replace(/\s/g, "").length} Characters</p>
-                <p>{countTime.length > 0? 0 :countTime - 0.008} Minutes Read</p>
+                <p>{text.split(/\s+/).filter((element) =>{return element.length !==0}).length } Words and {text.replace(/\s/g, "").length} Characters</p>
+                <p>{countTime} Minutes Read</p>
                 <h2 className='border-bottom' >Preview</h2>
-                <p>{text.length> 0 ? text: "Enter SomeThing In The Text Box Above To Preview It Here " }</p>
+                <p>{text.length> 0 ? text: "Nothing To Preview" }</p>
             </div>
 
 

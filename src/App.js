@@ -32,10 +32,22 @@ function App() {
       setAlert(null)
     }, 1500);
   }
-  const toggleMode = () => {                               //
-    //
+const removeBodyClasses = () =>{
+  
+  document.body.classList.remove('bg-success');
+  document.body.classList.remove('bg-primary')
+  document.body.classList.remove('bg-secondary')
+  document.body.classList.remove('bg-danger')
+  document.body.classList.remove('bg-warning')
+}
+
+  const toggleMode = (cls) => {                               //
+                                                        //
+    removeBodyClasses();
+    document.body.classList.add('bg-'+cls);
     if (mode === 'light') {                             //      <---- 7. yahan humne props k under state ko use kia hai
-      setmode('dark')                                 //                or isko props ko humne navbar me define kia hai or  
+      setmode('dark')      
+                                                      //                or isko props ko humne navbar me define kia hai or  
       document.body.style.background = '#042743'      //                 value humne isi page pr di hai
       showAlert("Dark mode has been enabled", "success")
       document.title = "TextUtils - Dark Mode";
@@ -79,7 +91,7 @@ function App() {
             {/* </Route> */}
 
             <Route path="/textUtils" element={<TextFrom heading="Enter The Text To Analyze" mode={mode} showAlertsss={showAlert} />} />
-            <Route path="/abouts" element={<About/>} />
+            <Route path="/abouts" element={<About  mode={mode}/>} />
             {/* <Route exact path="/abouts" element={<About/>}> */}
               {/* <About /> */}
             {/* </Route> */}
